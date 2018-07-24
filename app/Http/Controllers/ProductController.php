@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Product;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,17 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $list_obj = Category::all();
-        return view('admin.category.list')->with('list_obj', $list_obj);
+        $list_obj = Product::all();
+        return view('admin.product.list')->with('list_obj', $list_obj);
+    }
+
+    public function indexByCategory()
+    {
+        $list_obj = Product::all();
+        $categories = Category::all();
+        $selectedCategory = Product::first()->categoryName;
+
+        return view('admin.product.list')->with('list_obj', $list_obj);
     }
 
     /**
@@ -27,7 +35,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.category.create');
+        return view('admin.product.create');
     }
 
     /**
@@ -38,12 +46,16 @@ class CategoryController extends Controller
      */
     public function store()
     {
-        $obj = new Category();
+        $obj = new Product();
         $obj->name = Input::get('name');
+        $obj->categoryName = Input::get('categoryName');
+        $obj->price = Input::get('price');
         $obj->description = Input::get('description');
         $obj->images = Input::get('images');
+        $obj->content = Input::get('content');
+        $obj->note = Input::get('note');
         $obj->save();
-        return redirect('/admin/category');
+        return redirect('/admin/product');
     }
 
     /**
@@ -54,11 +66,11 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $obj = Category::find($id);
+        $obj = Product::find($id);
         if ($obj == null) {
             return view('404');
         }
-        return view('admin.category.show')
+        return view('admin.product.show')
             ->with('obj', $obj);
     }
 
@@ -70,11 +82,11 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $obj = Category::find($id);
+        $obj = Product::find($id);
         if ($obj == null) {
             return view('404');
         }
-        return view('admin.category.edit')
+        return view('admin.product.edit')
             ->with('obj', $obj);
     }
 
@@ -87,15 +99,19 @@ class CategoryController extends Controller
      */
     public function update($id)
     {
-        $obj = Category::find($id);
+        $obj = Product::find($id);
         if ($obj == null) {
             return view('404');
         }
         $obj->name = Input::get('name');
+        $obj->categoryName = Input::get('categoryName');
+        $obj->price = Input::get('price');
         $obj->description = Input::get('description');
         $obj->images = Input::get('images');
+        $obj->content = Input::get('content');
+        $obj->note = Input::get('note');
         $obj->save();
-        return redirect('/admin/category');
+        return redirect('/admin/product');
     }
 
     /**
@@ -106,9 +122,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $obj = Category::find($id);
+        $obj = Product::find($id);
         if ($obj == null) {
-            return response('Category not found or has been deleted!', 404);
+            return response('Product not found or has been deleted!', 404);
         }
         $obj->delete();
         return response('Deleted', 200);

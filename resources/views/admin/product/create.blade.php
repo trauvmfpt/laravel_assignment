@@ -42,7 +42,7 @@
                 </li>
             </ul>
             {{--<form class="form-inline my-2 my-md-0">--}}
-            {{--<input class="form-control" type="text" placeholder="Search" aria-label="Search">--}}
+                {{--<input class="form-control" type="text" placeholder="Search" aria-label="Search">--}}
             {{--</form>--}}
         </div>
     </div>
@@ -50,18 +50,51 @@
 
 <div class="container">
     <div>
-        <h1>Show Detail Category</h1>
+        <h1>Create New Category</h1>
     </div>
+    <form action="/admin/product" method="post">
+        {{csrf_field()}}
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" name="name">
+        </div>
+        <li class="form-group nav-item dropdown">
+            <select class="form-control m-bot15" name="categoryName">
+                {{--return view with categoryNames--}}
+                @if ($categoryNames ->count())
 
-    <div class="row">
-        <div class="col-sm-8">
-            <h2>{{$obj->name}}</h2>
-            <p>{{$obj->description}}</p>
+                    @foreach($categoryNames as $categoryName)
+                        <option value="{{ $categoryName->name }}" {{ $selectedCategory == $categoryName->name ? 'selected="selected"' : '' }}>{{ $categoryName->name }}</option>
+
+                        @endif
+
+            </select>
+        </li>
+        <div class="form-group">
+            <label>Price</label>
+            <input type="text" class="form-control" name="price">
         </div>
-        <div class="col-sm-4">
-            <img src="{{$obj->images}}" alt="Category Image">
+        <div class="form-group">
+            <label>Description</label>
+            <input type="text" class="form-control" name="description">
         </div>
-    </div>
+        <div class="form-group">
+            <label>Images</label>
+            <input type="text" class="form-control" name="images">
+        </div>
+        <div class="form-group">
+            <label>Content</label>
+            <input type="text" class="form-control" name="content">
+        </div>
+        <div class="form-group">
+            <label>Note</label>
+            <input type="text" class="form-control" name="note">
+        </div>
+        <div>
+            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="reset" class="btn btn-default">Reset</button>
+        </div>
+    </form>
 </div>
 <!-- Bootstrap core JavaScript
 ================================================== -->

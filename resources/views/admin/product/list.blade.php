@@ -50,22 +50,45 @@
 
 <div class="container">
     <div>
-        <h1>Show Detail Category</h1>
+        <h1>Create New Category</h1>
     </div>
-
-    <div class="row">
-        <div class="col-sm-8">
-            <h2>{{$obj->name}}</h2>
-            <p>{{$obj->description}}</p>
-        </div>
-        <div class="col-sm-4">
-            <img src="{{$obj->images}}" alt="Category Image">
-        </div>
-    </div>
+    <ul>
+        @foreach($list_obj as $item)
+            <li>
+                <a href="/admin/category/{{$item -> id}}">{{$item -> name}}</a>
+                <img src="{{$item -> images}}" alt="" style="width: 100px; border-radius: 50%">
+                <a href="/admin/category/{{$item -> id}}/edit">Edit</a>&nbsp;&nbsp;
+                <span class="btn-delete" id="{{$item-> id}}">Delete With Ajax</span>
+            </li>
+        @endforeach
+    </ul>
 </div>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>
+
+    var listDeleteButton = document.getElementsByClassName('btn-delete');
+    for (var i = 0; i < listDeleteButton.length; i++) {
+        listDeleteButton[i].onclick = function () {
+            if(confirm('Are you sure ?')){
+                var params = '_token={{csrf_token()}}';
+                var currentId = this.id;
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("DELETE", "/admin/category/" + currentId, true);
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        alert('Delete success!');
+                        window.location.reload();
+                    }
+                };
+                xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhttp.send(params);
+            }
+        }
+    }
+
+</script>
 </body>
 </html>

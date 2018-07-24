@@ -50,18 +50,28 @@
 
 <div class="container">
     <div>
-        <h1>Show Detail Category</h1>
+        <h1>Edit Category</h1>
     </div>
-
-    <div class="row">
-        <div class="col-sm-8">
-            <h2>{{$obj->name}}</h2>
-            <p>{{$obj->description}}</p>
+    <form action="/admin/category/{{$obj -> id}}" method="post">
+        @method('PUT')
+        {{csrf_field()}}
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" name="name" value="{{$obj -> name}}">
         </div>
-        <div class="col-sm-4">
-            <img src="{{$obj->images}}" alt="Category Image">
+        <div class="form-group">
+            <label>Description</label>
+            <input type="text" class="form-control" name="description" value="{{$obj -> description}}">
         </div>
-    </div>
+        <div class="form-group">
+            <label>Image</label>
+            <input type="text" class="form-control" name="images" value="{{$obj -> images}}">
+        </div>
+        <div>
+            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="reset" class="btn btn-default">Reset</button>
+        </div>
+    </form>
 </div>
 <!-- Bootstrap core JavaScript
 ================================================== -->

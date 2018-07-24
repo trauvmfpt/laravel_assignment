@@ -50,16 +50,20 @@
 
 <div class="container">
     <div>
-        <h1>Show Detail Category</h1>
+        <h1>Show Detail Product</h1>
     </div>
 
     <div class="row">
         <div class="col-sm-8">
             <h2>{{$obj->name}}</h2>
+            <p>{{$obj->categoryName}}</p>
+            <p>{{$obj->price}}</p>
             <p>{{$obj->description}}</p>
+            <p>{{$obj->content}}</p>
+            <p>{{$obj->note}}</p>
         </div>
         <div class="col-sm-4">
-            <img src="{{$obj->images}}" alt="Category Image">
+            <img src="{{$obj->images}}" alt="Product Image">
         </div>
     </div>
 </div>

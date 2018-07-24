@@ -50,7 +50,7 @@
 
 <div class="container">
     <div>
-        <h1>Create New Category</h1>
+        <h1>List Category</h1>
     </div>
     <ul>
         @foreach($list_obj as $item)

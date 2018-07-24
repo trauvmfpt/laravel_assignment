@@ -50,14 +50,14 @@
 
 <div class="container">
     <div>
-        <h1>Create New Category</h1>
+        <h1>List Product</h1>
     </div>
     <ul>
         @foreach($list_obj as $item)
             <li>
-                <a href="/admin/category/{{$item -> id}}">{{$item -> name}}</a>
+                <a href="/admin/product/{{$item -> id}}">{{$item -> name}}</a>
                 <img src="{{$item -> images}}" alt="" style="width: 100px; border-radius: 50%">
-                <a href="/admin/category/{{$item -> id}}/edit">Edit</a>&nbsp;&nbsp;
+                <a href="/admin/product/{{$item -> id}}/edit">Edit</a>&nbsp;&nbsp;
                 <span class="btn-delete" id="{{$item-> id}}">Delete With Ajax</span>
             </li>
         @endforeach

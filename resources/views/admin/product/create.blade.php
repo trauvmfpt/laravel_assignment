@@ -50,7 +50,7 @@
 
 <div class="container">
     <div>
-        <h1>Create New Category</h1>
+        <h1>Create New Product</h1>
     </div>
     <form action="/admin/product" method="post">
         {{csrf_field()}}
@@ -60,14 +60,11 @@
         </div>
         <li class="form-group nav-item dropdown">
             <select class="form-control m-bot15" name="categoryName">
-                {{--return view with categoryNames--}}
-                @if ($categoryNames ->count())
-
-                    @foreach($categoryNames as $categoryName)
-                        <option value="{{ $categoryName->name }}" {{ $selectedCategory == $categoryName->name ? 'selected="selected"' : '' }}>{{ $categoryName->name }}</option>
-
-                        @endif
-
+                @if ($categories ->count())
+                    @foreach($categories as $category)
+                        <option value="{{ $category->name }}" {{ $selectedCategory == $category->name ? 'selected="selected"' : '' }}>{{ $category->name }}</option>
+                    @endforeach
+                @endif
             </select>
         </li>
         <div class="form-group">

@@ -50,22 +50,46 @@
 
 <div class="container">
     <div>
-        <h1>Edit Category</h1>
+        <h1>Edit Product</h1>
     </div>
-    <form action="/admin/category/{{$obj -> id}}" method="post">
+    <form action="/admin/product/{{$obj -> id}}" method="post">
         @method('PUT')
         {{csrf_field()}}
         <div class="form-group">
             <label>Name</label>
-            <input type="text" class="form-control" name="name" value="{{$obj -> name}}">
+            <input type="text" class="form-control" name="name">
+        </div>
+        <li class="form-group nav-item dropdown">
+            <select class="form-control m-bot15" name="categoryName">
+                {{--return view with categoryNames--}}
+                @if ($categories ->count())
+
+                    @foreach($categories as $category)
+                        <option value="{{ $category->name }}" {{ $selectedCategory == $category->name ? 'selected="selected"' : '' }}>{{ $category->name }}</option>
+                    @endforeach
+                @endif
+
+            </select>
+        </li>
+        <div class="form-group">
+            <label>Price</label>
+            <input type="text" class="form-control" name="price">
         </div>
         <div class="form-group">
             <label>Description</label>
-            <input type="text" class="form-control" name="description" value="{{$obj -> description}}">
+            <input type="text" class="form-control" name="description">
         </div>
         <div class="form-group">
-            <label>Image</label>
-            <input type="text" class="form-control" name="images" value="{{$obj -> images}}">
+            <label>Images</label>
+            <input type="text" class="form-control" name="images">
+        </div>
+        <div class="form-group">
+            <label>Content</label>
+            <input type="text" class="form-control" name="content">
+        </div>
+        <div class="form-group">
+            <label>Note</label>
+            <input type="text" class="form-control" name="note">
         </div>
         <div>
             <button type="submit" class="btn btn-default">Submit</button>

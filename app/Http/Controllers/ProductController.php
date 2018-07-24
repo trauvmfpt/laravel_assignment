@@ -25,7 +25,10 @@ class ProductController extends Controller
         $categories = Category::all();
         $selectedCategory = Product::first()->categoryName;
 
-        return view('admin.product.list')->with('list_obj', $list_obj);
+        return view('admin.product.list')
+            ->with('list_obj', $list_obj)
+            ->with('categories', $categories)
+            ->with('selectedCategory', $selectedCategory);
     }
 
     /**
@@ -66,12 +69,14 @@ class ProductController extends Controller
      */
     public function show($id)
     {
+        $categories = Category::all();
         $obj = Product::find($id);
         if ($obj == null) {
             return view('404');
         }
         return view('admin.product.show')
-            ->with('obj', $obj);
+            ->with('obj', $obj)
+            ->with('categories', $categories);
     }
 
     /**
@@ -82,12 +87,14 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        $categories = Category::all();
         $obj = Product::find($id);
         if ($obj == null) {
             return view('404');
         }
         return view('admin.product.edit')
-            ->with('obj', $obj);
+            ->with('obj', $obj)
+            ->with('categories', $categories);
     }
 
     /**
